@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zpquant-server", "Zpquant-server-client-ForWin32\Zpquant-server-client-ForWin32.vcxproj", "{68EA09FD-DA82-4D01-BDE6-EA7620EE585C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zpquant-client", "Zpquant-client\Zpquant-client.vcxproj", "{B0EFB6F9-2279-4296-9D3C-BF5C15999FF9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68EA09FD-DA82-4D01-BDE6-EA7620EE585C}.Debug|x64.ActiveCfg = Debug|x64
+		{68EA09FD-DA82-4D01-BDE6-EA7620EE585C}.Debug|x64.Build.0 = Debug|x64
+		{68EA09FD-DA82-4D01-BDE6-EA7620EE585C}.Debug|x86.ActiveCfg = Debug|Win32
+		{68EA09FD-DA82-4D01-BDE6-EA7620EE585C}.Debug|x86.Build.0 = Debug|Win32
+		{68EA09FD-DA82-4D01-BDE6-EA7620EE585C}.Release|x64.ActiveCfg = Release|x64
+		{68EA09FD-DA82-4D01-BDE6-EA7620EE585C}.Release|x64.Build.0 = Release|x64
+		{68EA09FD-DA82-4D01-BDE6-EA7620EE585C}.Release|x86.ActiveCfg = Release|Win32
+		{68EA09FD-DA82-4D01-BDE6-EA7620EE585C}.Release|x86.Build.0 = Release|Win32
+		{B0EFB6F9-2279-4296-9D3C-BF5C15999FF9}.Debug|x64.ActiveCfg = Debug|x64
+		{B0EFB6F9-2279-4296-9D3C-BF5C15999FF9}.Debug|x64.Build.0 = Debug|x64
+		{B0EFB6F9-2279-4296-9D3C-BF5C15999FF9}.Debug|x86.ActiveCfg = Debug|Win32
+		{B0EFB6F9-2279-4296-9D3C-BF5C15999FF9}.Debug|x86.Build.0 = Debug|Win32
+		{B0EFB6F9-2279-4296-9D3C-BF5C15999FF9}.Release|x64.ActiveCfg = Release|x64
+		{B0EFB6F9-2279-4296-9D3C-BF5C15999FF9}.Release|x64.Build.0 = Release|x64
+		{B0EFB6F9-2279-4296-9D3C-BF5C15999FF9}.Release|x86.ActiveCfg = Release|Win32
+		{B0EFB6F9-2279-4296-9D3C-BF5C15999FF9}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E7E7A73-FA8F-4660-9629-419E4FCFD37E}
+	EndGlobalSection
+EndGlobal
