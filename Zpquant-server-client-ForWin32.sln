@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zpquant-server", "Zpquant-server-client-ForWin32\Zpquant-server-client-ForWin32.vcxproj", "{68EA09FD-DA82-4D01-BDE6-EA7620EE585C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zpquant-client", "Zpquant-client\Zpquant-client.vcxproj", "{B0EFB6F9-2279-4296-9D3C-BF5C15999FF9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68EA09FD-DA82-4D01-BDE6-EA7620EE585C} = {68EA09FD-DA82-4D01-BDE6-EA7620EE585C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

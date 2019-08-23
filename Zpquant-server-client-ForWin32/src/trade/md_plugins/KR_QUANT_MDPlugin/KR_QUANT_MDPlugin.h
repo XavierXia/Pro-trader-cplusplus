@@ -10,6 +10,7 @@
 #include <tuple>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <future>
+#include <boost/log/common.hpp>
 
 extern "C" {
 #include "mds_api/mds_api.h"
@@ -28,6 +29,7 @@ extern "C" {
 #include <nanomsg/pair.h>
 
 using namespace boost::gregorian;
+using namespace boost::posix_time;
 using namespace boost::asio;
 using namespace std;
 
@@ -50,6 +52,7 @@ class CKrQuantMDPluginImp:
 
 public:
 	static const string s_strAccountKeyword;
+	boost::log::sources::severity_logger< severity_levels > m_Logger;
 	CKrQuantMDPluginImp();
 	~CKrQuantMDPluginImp();
 
@@ -70,6 +73,7 @@ public:
 	BOOL MDResubscribeByCodePostfix(MdsApiSessionInfoT *pTcpChannel,
 		const char *pCodeListString, int32 MdsSubscribeDataType, eMdsSubscribeModeT subMode);
 	void OnWaitOnMsg();
+	void ShowMessage(severity_levels, const char * fmt, ...);
 
 private:
 	bool Start();
