@@ -143,8 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="demo_md_client_spi.h" />
-    <ClInclude Include="demo_trader_client_spi.h" />
+    <ClInclude Include="demo_client.h" />
     <ClInclude Include="nn.hpp" />
     <ClInclude Include="unistd.h" />
     <ClInclude Include="ZpquantMdApi.h" />
@@ -154,9 +153,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommunicationModuleForClient.cpp" />
-    <ClCompile Include="demo_md_client_spi.cpp" />
-    <ClCompile Include="demo_trader_client_spi.cpp" />
-    <ClCompile Include="zpquant_client_main_demo.cpp" />
+    <ClCompile Include="demo_client.cpp" />
+    <ClCompile Include="demo_main.cpp" />
     <ClCompile Include="zpquant_md_client_api.cpp" />
     <ClCompile Include="zpquant_trader_client_api.cpp" />
   </ItemGroup>
