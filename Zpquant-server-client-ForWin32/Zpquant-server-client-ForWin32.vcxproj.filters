@@ -189,6 +189,9 @@
     <ClInclude Include="src\trade\trade_service.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\trade\rediscpp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\trade\md_plugins\KR_QUANT_MDPlugin\KR_QUANT_MDPlugin.cpp">
@@ -216,6 +219,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\trade\trade_service.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\trade\rediscpp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

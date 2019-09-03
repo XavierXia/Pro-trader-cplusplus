@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -73,7 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>.\src\trade;C:\Program Files %28x86%29\nanomsg\include;.\src\third\CTPForWin32;.\src\third\Kr360Quant\nanomsgcpp_header;.\src\third\Kr360Quant\include;.\src\common\trade_headers;.\src\common;E:\boost\boost_1_70_0;.\src\trade\trade_plugins;.\src\trade\md_plugins;$(IncludePath)</IncludePath>
+    <IncludePath>E:\work\redis-win-4.0.2\src;E:\work\redis-win-4.0.2\deps;.\src\trade;C:\Program Files %28x86%29\nanomsg\include;.\src\third\CTPForWin32;.\src\third\Kr360Quant\nanomsgcpp_header;.\src\third\Kr360Quant\include;.\src\common\trade_headers;.\src\common;E:\boost\boost_1_70_0;.\src\trade\trade_plugins;.\src\trade\md_plugins;$(IncludePath)</IncludePath>
     <LibraryPath>.\src\third\Kr360Quant\win32;C:\Program Files %28x86%29\nanomsg\lib;E:\boost\boost_1_70_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -92,12 +92,13 @@
       <PreprocessorDefinitions>Boost_USE_STATIC_RUNTIME=OFF;Boost_USE_MULTITHREADED;Boost_USE_STATIC_LIBS;KR_QUANT_TDPlugin;KR_QUANT_MDPlugin;_WIN32_WINNT=0x0A00;_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING;_CRT_SECURE_NO_WARNINGS;WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>E:\boost\boost_1_70_0;C:\Program Files (x86)\nanomsg\include\nanomsg</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\nanomsg\lib;E:\boost\boost_1_70_0\stage\lib;E:\boost\boost_1_70_0\lib64-msvc-14.1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>nanomsg.lib;oes_api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\nanomsg\lib;E:\boost\boost_1_70_0\stage\lib;E:\boost\boost_1_70_0\lib64-msvc-14.1;E:\boost\boost_1_70_0\build\lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>nanomsg.lib;oes_api.lib;hiredis.lib;Win32_Interop.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -198,6 +199,7 @@
     <ClInclude Include="src\trade\io_service_pool.hpp" />
     <ClInclude Include="src\trade\md_plugins\KR_QUANT_MDPlugin\KR_QUANT_MDPlugin.h" />
     <ClInclude Include="src\trade\public.h" />
+    <ClInclude Include="src\trade\rediscpp.h" />
     <ClInclude Include="src\trade\server.hpp" />
     <ClInclude Include="src\trade\trade_plugins\KR_QUANT_TDPlugin\KR_QUANT_TDPlugin.h" />
     <ClInclude Include="src\trade\trade_plugins\KR_QUANT_TDPlugin\oes_client_api.h" />
@@ -209,6 +211,7 @@
     <ClCompile Include="src\trade\io_service_pool.cpp" />
     <ClCompile Include="src\trade\main.cpp" />
     <ClCompile Include="src\trade\md_plugins\KR_QUANT_MDPlugin\KR_QUANT_MDPlugin.cpp" />
+    <ClCompile Include="src\trade\rediscpp.cpp" />
     <ClCompile Include="src\trade\server.cpp" />
     <ClCompile Include="src\trade\trade_plugins\KR_QUANT_TDPlugin\KR_QUANT_TDPlugin.cpp" />
     <ClCompile Include="src\trade\trade_plugins\KR_QUANT_TDPlugin\oes_client_api.cpp" />
