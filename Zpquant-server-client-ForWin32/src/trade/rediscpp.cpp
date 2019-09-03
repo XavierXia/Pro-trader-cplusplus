@@ -168,3 +168,46 @@ bool Redis::ExistsKey(const string& key)
 
 	return false;
 }
+
+void Redis::Scan(const string& key, vector<string> &allKeyv)
+{
+	int Cursor = 0;
+	bool done = false;
+
+	while (!done)
+	{
+		freeReply();
+		reply = (redisReply*)::redisCommand(redisCon, "SCAN %d MATCH %s COUNT 100", Cursor, key.c_str());
+		int type = reply ? (reply->type) : 0;
+
+		if (reply->type == REDIS_REPLY_ARRAY)
+		{
+			if (reply->elements == 0)
+			{
+				done = true;
+				cout << "get 0 msg from " << key.c_str() << endl;
+			}
+			else
+			{
+				//reply->element[0] contains cursor
+				Cursor = atoi(reply->element[0]->str);
+				//reply->element[1] contains elements array:key1,key2,...
+				redisReply ** siteCounters = reply->element[1]->element;
+
+				for (size_t i = 0; i < reply->element[1]->elements; i++)
+				{
+					string elem = siteCounters[i++]->str;
+					allKeyv.push_back(elem);
+				}
+				if (Cursor == 0)  //scan over
+				{
+					done = true;
+				}
+			}
+		}
+		else
+		{
+			done = true;
+		}
+	}
+}

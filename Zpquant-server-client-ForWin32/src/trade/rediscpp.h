@@ -9,6 +9,7 @@
 #include <string.h>
 #include <tuple>
 #include <string.h>
+#include <vector>
 #include "hiredis/hiredis.h"
 
 using namespace std;
@@ -36,6 +37,8 @@ namespace zpquant {
 		bool Del(const string& key);
 		//检查某个key是否存在
 		bool ExistsKey(const string& key);
+		//选择出符合某个模式的key
+		void Scan(const string& key,vector<string> &allKeyv);
 	private:
 
 
