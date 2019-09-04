@@ -39,6 +39,12 @@ namespace zpquant {
 		bool ExistsKey(const string& key);
 		//选择出符合某个模式的key
 		void Scan(const string& key,vector<string> &allKeyv);
+		//创建list类型数据
+		bool Lpush(const string& key,string value);
+		//获取list的长度
+		int LLen(const string& key);
+		//获取list中某个位置对应的value
+		void Lindex(const string& key,int index,string& value);
 	private:
 
 

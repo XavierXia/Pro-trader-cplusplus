@@ -211,3 +211,41 @@ void Redis::Scan(const string& key, vector<string> &allKeyv)
 		}
 	}
 }
+
+//创建list类型数据
+bool Redis::Lpush(const string& key, string value)
+{
+	freeReply();
+	reply = (redisReply*)::redisCommand(redisCon, "LPUSH %s %s", key.c_str(),value.c_str());
+
+	if (reply->type == REDIS_REPLY_INTEGER)
+	{
+		if (reply->integer == 1L) return true;
+	}
+
+	return false;
+}
+
+//获取list的长度
+int Redis::LLen(const string& key)
+{
+	freeReply();
+	reply = (redisReply*)::redisCommand(redisCon, "LLEN %s", key.c_str());
+	if (reply->type == REDIS_REPLY_INTEGER)
+	{
+		return reply->integer;
+	}
+}
+
+//获取list中某个位置对应的value
+void Redis::Lindex(const string& key, int index, string& value)
+{
+	freeReply();
+	reply = (redisReply*)::redisCommand(redisCon, "LINDEX %s %d", key.c_str(),index);
+	if (!isError() && reply->type == REDIS_REPLY_STRING)
+	{
+		value = reply->str;
+	}
+}
+
+
