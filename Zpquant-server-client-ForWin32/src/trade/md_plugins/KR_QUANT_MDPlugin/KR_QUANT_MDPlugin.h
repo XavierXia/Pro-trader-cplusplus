@@ -21,6 +21,7 @@ extern "C" {
 }
 
 #include "SeverityLevel.h"
+#include "rediscpp.h"
 #include <vector>
 
 #include "AtmPluginInterface.h"
@@ -57,6 +58,7 @@ public:
 	~CKrQuantMDPluginImp();
 
 	nn::socket nnsocket;
+	zpquant::Redis Redis;
 	map<string, ClientListMdInfoT> mclient;
 
 	virtual bool IsOnline();

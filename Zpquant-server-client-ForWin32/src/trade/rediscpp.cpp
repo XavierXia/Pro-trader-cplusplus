@@ -248,4 +248,19 @@ void Redis::Lindex(const string& key, int index, string& value)
 	}
 }
 
+bool Redis::Flushdb()
+{
+	bool bret = false;
+	freeReply();
+	reply = (redisReply*)::redisCommand(redisCon, "FLUSHDB");
+
+	if (!(reply->type == REDIS_REPLY_STATUS && _stricmp(reply->str, "OK") == 0))
+	{
+		return bret;
+	}
+	bret = true;
+	return bret;
+}
+
+
 

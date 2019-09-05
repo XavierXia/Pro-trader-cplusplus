@@ -45,6 +45,8 @@ namespace zpquant {
 		int LLen(const string& key);
 		//获取list中某个位置对应的value
 		void Lindex(const string& key,int index,string& value);
+		//清空所有key
+		bool Flushdb();
 	private:
 
 

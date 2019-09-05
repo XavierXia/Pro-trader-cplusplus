@@ -934,6 +934,7 @@ void
 CDemoClient::OnQueryFundTransferSerial(
 	const ZpquantFundTransferSerialItemT *pFundTrsf,
 	const ZpquantQryCursor *pCursor, int32 requestId) {
+/*
 	sprintf(sendJsonDataStr, ">>> 查询到出入金流水: index[%d], isEnd[%c], " \
 		"客户端环境号[%" __SPK_FMT_HH__ "d], 客户委托流水号[%d], " \
 		"资金账户[%s], 方向[%s], 金额[%" __SPK_FMT_LL__ "d], " \
@@ -951,6 +952,7 @@ CDemoClient::OnQueryFundTransferSerial(
 		pFundTrsf->doneTime);
 
 	fprintf(stdout, sendJsonDataStr);
+	*/
 }
 
 
@@ -958,7 +960,7 @@ CDemoClient::OnQueryFundTransferSerial(
 void
 CDemoClient::OnQueryStock(const ZpquantStockBaseInfo *pStock,
 	const ZpquantQryCursor *pCursor, int32 requestId) {
-	sprintf(sendJsonDataStr, ">>> 查询到现货产品信息: index[%d], isEnd[%c], " \
+	sprintf(sendJsonDataStr, ">>> 查询到个股产品信息，client端: index[%d], isEnd[%c], " \
 		"证券代码[%s], 证券名称[%s], 基金代码[%s], " \
 		"市场代码[%" __SPK_FMT_HH__ "u], 证券类型[%" __SPK_FMT_HH__ "u], " \
 		"证券子类型[%" __SPK_FMT_HH__ "u], 证券级别[%" __SPK_FMT_HH__ "u], " \
