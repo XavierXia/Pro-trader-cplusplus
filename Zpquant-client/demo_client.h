@@ -59,7 +59,8 @@ public:
 	/* 查询市场状态信息回调 */
 	virtual void        OnQueryMarketState(const ZpquantMarketStateInfo *pMarketState, const ZpquantQryCursor *pCursor, int32 requestId);
 
-	virtual void        onGetTradingDay(const ZpquantTradingDayInfo *pTradingDayInfo);
+	virtual void        OnGetTradingDay(const ZpquantTradingDayInfo *pTradingDayInfo);
+	virtual void		OnGetOrderResultFromRiskModel(const char* riskType, const char* newOrder, const char* oldOrder, bool isRejected);
 
 public:
 	void Start();

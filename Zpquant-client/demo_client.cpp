@@ -84,12 +84,6 @@ void CDemoClient::Start()
 		return;
 	}
 
-	//sleep(100);
-
-	if (!pZpquantMdApi->Start()) {
-		fprintf(stderr, "启动API失败!\n");
-		return;
-	}
 	Sleep(1000);
 
 	/*
@@ -123,12 +117,6 @@ void CDemoClient::Start()
 	 // pOesApi->SetThreadUsername("customer1");
 	 // pOesApi->SetThreadPassword("txt:123456");
 	 // pOesApi->SetThreadPassword("md5:e10adc3949ba59abbe56e057f20f883e");
-
-	 /* 启动 */
-	if (!pZpquantTradeApi->Start()) {
-		fprintf(stderr, "启动API失败!\n");
-		return;
-	}
 
 	/* 打印当前交易日 */
 	fprintf(stdout, "服务端交易日: %08d\n", pZpquantTradeApi->GetTradingDay());
@@ -199,6 +187,21 @@ void CDemoClient::test_trade()
 	}
 
 	Sleep(1000);
+
+	//查询个股信息，包括涨停价等现货信息
+	if (1)
+	{
+		string codeString1 = "600000";
+		uint8 sclb = 1; //
+		pZpquantTradeApi->QueryStock(codeString1.c_str(),sclb);
+	}
+
+	if (1)
+	{
+		string codeString1 = "000001";
+		uint8 sclb = 2; //
+		pZpquantTradeApi->QueryStock(codeString1.c_str(), sclb);
+	}
 
 	//下单买入 上海
 	if (0)
@@ -713,6 +716,7 @@ CDemoClient::OnStockHoldingVariation(const ZpquantStkHoldingItem *pStkHoldingIte
 void
 CDemoClient::OnFundTrsfReject(int32 errorCode,
 	const ZpquantFundTrsfReject *pFundTrsfReject) {
+	/*
 	sprintf(sendJsonDataStr, ">>> 收到出入金委托拒绝回报: " \
 		"错误码[%d], 错误信息[%s], " \
 		"客户端环境号[%" __SPK_FMT_HH__ "d], " \
@@ -726,6 +730,7 @@ CDemoClient::OnFundTrsfReject(int32 errorCode,
 		pFundTrsfReject->direct, pFundTrsfReject->occurAmt);
 
 	fprintf(stdout, sendJsonDataStr);
+	*/
 }
 
 
@@ -733,6 +738,7 @@ CDemoClient::OnFundTrsfReject(int32 errorCode,
 void
 CDemoClient::OnFundTrsfReport(int32 errorCode,
 	const ZpquantFundTrsfReport *pFundTrsfReport) {
+	/*
 	sprintf(sendJsonDataStr, ">>> 收到出入金委托执行回报: " \
 		"错误原因[%d], 主柜错误码[%d], 错误信息[%s], " \
 		"客户端环境号[%" __SPK_FMT_HH__ "d], " \
@@ -752,6 +758,7 @@ CDemoClient::OnFundTrsfReport(int32 errorCode,
 		pFundTrsfReport->doneTime);
 
 	fprintf(stdout, sendJsonDataStr);
+	*/
 }
 
 
@@ -961,7 +968,7 @@ void
 CDemoClient::OnQueryStock(const ZpquantStockBaseInfo *pStock,
 	const ZpquantQryCursor *pCursor, int32 requestId) {
 	sprintf(sendJsonDataStr, ">>> 查询到个股产品信息，client端: index[%d], isEnd[%c], " \
-		"证券代码[%s], 证券名称[%s], 基金代码[%s], " \
+		"证券代码[%s], 基金代码[%s], " \
 		"市场代码[%" __SPK_FMT_HH__ "u], 证券类型[%" __SPK_FMT_HH__ "u], " \
 		"证券子类型[%" __SPK_FMT_HH__ "u], 证券级别[%" __SPK_FMT_HH__ "u], " \
 		"风险等级[%" __SPK_FMT_HH__ "u], 停牌标志[%" __SPK_FMT_HH__ "u], " \
@@ -970,7 +977,7 @@ CDemoClient::OnQueryStock(const ZpquantStockBaseInfo *pStock,
 		"昨日收盘价[%d], 债券利息[%" __SPK_FMT_LL__ "d], " \
 		"涨停价[%d], 跌停价[%d]\n",
 		pCursor->seqNo, pCursor->isEnd,
-		pStock->securityId, pStock->securityName, pStock->fundId,
+		pStock->securityId, pStock->fundId,
 		pStock->mktId, pStock->securityType, pStock->subSecurityType,
 		pStock->securityLevel, pStock->securityRiskLevel, pStock->suspFlag,
 		pStock->qualificationClass, pStock->isDayTrading,
@@ -998,10 +1005,39 @@ CDemoClient::OnQueryMarketState(const ZpquantMarketStateInfo *pMarketState,
 }
 
 //获取交易日
-void CDemoClient::onGetTradingDay(const ZpquantTradingDayInfo * pTradingDayInfo)
+void CDemoClient::OnGetTradingDay(const ZpquantTradingDayInfo * pTradingDayInfo)
 {
 	sprintf(sendJsonDataStr, ">>> 获取交易日: 交易日[%d], isTradingDay[%d]\n",
 		pTradingDayInfo->tradingDay, pTradingDayInfo->isTradingDay);
 
 	fprintf(stdout, sendJsonDataStr);
 }
+
+void CDemoClient::OnGetOrderResultFromRiskModel(const char* riskType, const char* newOrder, const char* oldOrder, bool isRejected)
+{
+	string type = riskType;
+	if (type == "stockAmountCheck")
+	{
+		sprintf(sendJsonDataStr, ">>> 单笔委托数量上限检查:每笔下单前检查该笔订单股票数量不超过9999手: riskType[%s],newOrder[%s], oldOrder[%s],isRejected[%d]\n",
+			riskType, newOrder, oldOrder, isRejected ? 1:0);
+	}
+	else if (type == "selfmake-transaction")
+	{
+		sprintf(sendJsonDataStr, ">>> 自成交检查:出现自成交: riskType[%s],newOrder[%s], oldOrder[%s],isRejected[%d]\n",
+			riskType, newOrder, oldOrder, isRejected ? 1 : 0);
+	}
+	else if (type == "turnover")
+	{
+		sprintf(sendJsonDataStr, ">>> 每秒Turnover检查:每笔下单前检查前推一秒至该笔下单之间的委托数量，即本次下单记数减去一秒前下单记数: riskType[%s],newOrder[%s], oldOrder[%s],isRejected[%d]\n",
+			riskType, newOrder, oldOrder, isRejected ? 1 : 0);
+	}
+	else if (type == "cancelOrderCheck")
+	{
+		sprintf(sendJsonDataStr, ">>> 撤单数检查:每笔撤单前检查总撤单数量，总数达到10000: riskType[%s],newOrder[%s], oldOrder[%s],isRejected[%d]\n",
+			riskType, newOrder, oldOrder, isRejected ? 1 : 0);
+	}
+
+	fprintf(stdout, sendJsonDataStr);
+}
+
+
