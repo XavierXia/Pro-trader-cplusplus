@@ -11,13 +11,7 @@
 
 //测试使用的变量，仅做参考,主要用于模拟触发买卖和撤单信号
 int u = 0;
-int j = 0;
-int k = 0;
 int m = 0;
-int n = 0;
-int x = 0;
-bool bF = true;
-bool bS = true;
 
 CDemoClient::CDemoClient(int32 something) {
 	this->something = something;
@@ -165,14 +159,16 @@ void CDemoClient::test_trade()
 	Sleep(1000);
 
 	//测试 查询特定某只股票持仓，上海，若不测试该项，请使用if(0)
-	if (0)
+	if (1)
 	{
 		string codeString = "600000";
 		pZpquantTradeApi->QueryStkHolding(codeString.c_str(), 1, 0);
 	}
 
+	Sleep(100);
+
 	//测试查询特定某只股票持仓，深圳
-	if (0)
+	if (1)
 	{
 		string codeString = "000001";
 		pZpquantTradeApi->QueryStkHolding(codeString.c_str(), 2, 0);
@@ -195,7 +191,7 @@ void CDemoClient::test_trade()
 		uint8 sclb = 1; //
 		pZpquantTradeApi->QueryStock(codeString1.c_str(),sclb);
 	}
-
+	Sleep(100);
 	if (1)
 	{
 		string codeString1 = "000001";
@@ -292,94 +288,94 @@ CDemoClient::OnTickRtnDepthMarketData(ZpquantMdsL2OnTickT *pDepthMarketData)
 		"\n",
 		pDepthMarketData->SecurityID,
 		pDepthMarketData->TradePx, pDepthMarketData->HighPx);
-	/*
+
 	u++;
 	//下单买入 深圳
-	if (u > 10)
+	if (u == 2)
 	{
 		string code = pDepthMarketData->SecurityID;
 		if (pDepthMarketData->securityType == 1
+			|| code == "600000")
+		{
+			pZpquantTradeApi->SendOrder(code.c_str(), 1, 1, pDepthMarketData->OfferLevels[1].Price, 100);
+		}
+
+		Sleep(20);
+		if (pDepthMarketData->securityType == 2
 			|| code == "000001")
 		{
 			pZpquantTradeApi->SendOrder(code.c_str(), 2, 1, pDepthMarketData->OfferLevels[1].Price, 100);
 		}
+	}
 
-		//测试 将全部已发送订单添加至“当日委托”列表。
-		//测试 将全部已成交订单添加至“当日成交”列表。
-		for (int i = 0; i < 1; i++)
+	//下单卖出 上海
+	if (u == 6)
+	{
+		string code = pDepthMarketData->SecurityID;
+		if (pDepthMarketData->securityType == 1
+			|| code == "600000")
 		{
-			pZpquantTradeApi->SendOrder(code.c_str(), 2, 1, pDepthMarketData->OfferLevels[1].Price, 100);
-			//Sleep(200);
+			pZpquantTradeApi->SendOrder(code.c_str(), 1, 2, pDepthMarketData->BidLevels[2].Price, 100);
+
+		}
+
+		Sleep(20);
+		if (pDepthMarketData->securityType == 2
+			|| code == "000001")
+		{
+			pZpquantTradeApi->SendOrder(code.c_str(), 2, 2, pDepthMarketData->OfferLevels[1].Price, 100);
+		}
+	}
+
+	//自成交
+	if (u == 12)
+	{
+		//卖出
+		string code = pDepthMarketData->SecurityID;
+		if (pDepthMarketData->securityType == 2
+			|| code == "000001")
+		{
+			pZpquantTradeApi->SendOrder(code.c_str(), 2, 2, pDepthMarketData->BidLevels[6].Price, 100);
+		}
+
+		Sleep(20);
+		
+		//买入
+		if (pDepthMarketData->securityType == 2
+			|| code == "000001")
+		{
+			pZpquantTradeApi->SendOrder(code.c_str(), 2, 1, pDepthMarketData->OfferLevels[6].Price, 100);
+		}
+	}
+
+	//每秒Turnover检查
+	if (u == 16)
+	{
+		string code = pDepthMarketData->SecurityID;
+
+		for (int ui = 0; ui < 7; ui++)
+		{
+			if (pDepthMarketData->securityType == 1
+				|| code == "600000")
+			{
+				pZpquantTradeApi->SendOrder(code.c_str(), 1, 1, pDepthMarketData->OfferLevels[1].Price, 100);
+			}
+
+			Sleep(10);
+		}
+	}
+
+	if (u > 18)
+	{
+		string code = pDepthMarketData->SecurityID;
+		if (pDepthMarketData->securityType == 1
+			|| code == "600000")
+		{
+			pZpquantTradeApi->SendOrder(code.c_str(), 1, 1, pDepthMarketData->OfferLevels[1].Price, 99999*100);
 		}
 
 		u = 0;
 	}
-
-	j++;
-	//下单买入 上海
-	if (j > 20)
-	{
-		
-		string code = pDepthMarketData->SecurityID;
-		if (pDepthMarketData->securityType == 1
-			|| code == "600000")
-		{
-			pZpquantTradeApi->SendOrder(code.c_str(), 1, 1, 5000, 100);
-
-			//测试 将全部拒绝转发的委托添加至“被拒绝委托”列表。
-			for (int i = 0; i < 1; i++)
-			{
-				pZpquantTradeApi->SendOrder(code.c_str(), 1, 1, 5000, 100);
-				//Sleep(2000);
-			}
-		}
-		j = 0;
-	}
-
-	k++;
-	//下单卖出 上海
-	if (k > 30)
-	{
-		string code = pDepthMarketData->SecurityID;
-		if (pDepthMarketData->securityType == 1
-			|| code == "600000")
-		{
-			pZpquantTradeApi->SendOrder(code.c_str(), 1, 1, pDepthMarketData->BidLevels[2].Price, 100);
-
-			//测试 将全部已发送订单添加至“当日委托”列表。
-			//测试 将全部已成交订单添加至“当日成交”列表。
-			for (int i = 0; i < 1; i++)
-			{
-				pZpquantTradeApi->SendOrder(code.c_str(), 1, 1, pDepthMarketData->BidLevels[2].Price, 100);
-				//Sleep(2000);
-			}
-		}
-		k = 0;
-	}
-	*/
-
-	x++;
-	//下单买入 深圳
-	//if (x > 5)
-	if(bS)
-	{
-		string code = pDepthMarketData->SecurityID;
-		if (pDepthMarketData->securityType == 1
-			|| code == "000001")
-		{
-			pZpquantTradeApi->SendOrder(code.c_str(), 2, 1, pDepthMarketData->BidLevels[5].Price, 100);
-		}
-
-		//测试 将全部已发送订单添加至“当日委托”列表。
-		for (int i = 0; i < 2; i++)
-		{
-			pZpquantTradeApi->SendOrder(code.c_str(), 2, 1, pDepthMarketData->BidLevels[5].Price-10000, 100);
-		}
-
-		//x = 0;
-		bS = false;
-	}
-
 }
 
 /*
@@ -572,16 +568,18 @@ CDemoClient::OnOrderReport(int32 errorCode, const ZpquantOrdCnfm *pOrderReport) 
 	}
 
 	m++;
-	//if (m > 3)
-	if (bF)
+	if (m == 2)
 	{
 		//通过待撤委托的 origClOrdId 进行撤单
 		int64 origClOrdId = pOrderReport->clOrdId;//待撤委托的origClOrdId需要通过回报消息获取
 		pZpquantTradeApi->SendCancelOrder(pOrderReport->mktId, 0, 0, origClOrdId);
-
-		//m = 0;
-		bF = false;
 	}
+
+	if (m > 4)
+	{
+		m = 0;
+	}
+
 }
 
 
