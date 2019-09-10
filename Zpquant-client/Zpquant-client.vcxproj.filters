@@ -38,20 +38,21 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CommunicationModuleForClient.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="zpquant_md_client_api.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="zpquant_trader_client_api.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="demo_client.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="demo_main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Zpquant_dll.dll">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Zpquant_dll.lib">
+      <Filter>资源文件</Filter>
+    </Library>
   </ItemGroup>
 </Project>

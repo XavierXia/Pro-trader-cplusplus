@@ -96,7 +96,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>E:\boost\boost_1_70_0\stage\lib;E:\boost\boost_1_70_0\lib64-msvc-14.1;C:\Program Files (x86)\nanomsg\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>nanomsg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>nanomsg.lib;Zpquant_dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -153,11 +153,14 @@
     <ClInclude Include="ZpquantUserApiStruct.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CommunicationModuleForClient.cpp" />
     <ClCompile Include="demo_client.cpp" />
     <ClCompile Include="demo_main.cpp" />
-    <ClCompile Include="zpquant_md_client_api.cpp" />
-    <ClCompile Include="zpquant_trader_client_api.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Zpquant_dll.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Zpquant_dll.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
